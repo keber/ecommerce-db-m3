@@ -189,7 +189,7 @@ ORDER BY inv.qty_available ASC, p.name, pv.size;
 -- =============================================================================
 -- Q7. Productos sin ventas (nunca han sido comprados)
 -- =============================================================================
-SELECT
+EXPLAIN ANALYZE SELECT
     p.id,
     p.name,
     c.name   AS categoria,
@@ -211,11 +211,12 @@ WHERE p.is_active = 1
 ORDER BY p.created_at;
 
 -- Alternativa con LEFT JOIN (a veces más legible)
-SELECT
+EXPLAIN ANALYZE SELECT
     p.id,
     p.name,
     c.name  AS categoria,
-    p.price
+    p.price,
+    p.created_at
 FROM products p
 JOIN categories c ON c.id = p.category_id
 LEFT JOIN (
@@ -228,7 +229,7 @@ LEFT JOIN (
 ) vendidos ON vendidos.product_id = p.id
 WHERE p.is_active     = 1
   AND vendidos.product_id IS NULL
-ORDER BY p.name;
+ORDER BY p.created_at;
 
 -- =============================================================================
 -- Q8. Clientes frecuentes (≥ X órdenes exitosas)
@@ -306,25 +307,8 @@ WHERE pv.is_active = 1
 ORDER BY inv.qty_available ASC, p.name, pv.size;
 
 -- =============================================================================
--- Q11 (BONUS). Ranking de categorías por ingresos
+-- Q11.  Ranking de categorías por ingresos
 -- =============================================================================
-SELECT
-    c.name                                        AS categoria,
-    COUNT(DISTINCT o.id)                          AS ordenes,
-    SUM(oi.qty)                                   AS unidades,
-    SUM(oi.subtotal)                              AS ingresos_clp,
-    RANK() OVER (ORDER BY SUM(oi.subtotal) DESC)  AS ranking
-FROM categories  c
-JOIN products    p  ON p.id         = c.id   -- corrección: join correcto
-JOIN product_variants pv ON pv.product_id = p.id
-JOIN order_items oi ON oi.variant_id = pv.id
-JOIN orders      o  ON o.id          = oi.order_id
-WHERE o.status NOT IN ('cancelled', 'pending')
-  AND p.category_id = c.id           -- condición correcta
-GROUP BY c.id, c.name
-ORDER BY ingresos_clp DESC;
-
--- (versión corregida sin el bug anterior)
 SELECT
     c.name                                        AS categoria,
     COUNT(DISTINCT o.id)                          AS ordenes,
@@ -386,7 +370,7 @@ BEGIN
         RESIGNAL;
     END;
 
-    -- ── Inicio de transacción ─────────────────────────────────────────────
+    -- :: Inicio de transacción ::
     START TRANSACTION;
 
     -- Paso 1: Verificar stock (bloqueo pesimista con SELECT ... FOR UPDATE)
@@ -506,7 +490,7 @@ BEGIN
         RESIGNAL;
     END;
 
-    -- ── Inicio de transacción ─────────────────────────────────────────────
+    -- :: Inicio de transacción ::
     START TRANSACTION;
 
     -- Paso 1: Leer estado actual (bloqueo)
@@ -560,7 +544,7 @@ BEGIN
         UPDATE payments SET status = 'failed'   WHERE order_id = p_order_id;
     END IF;
 
-    -- ── Confirmar ─────────────────────────────────────────────────────────
+    -- :: Confirmar ::
     COMMIT;
 END$$
 
