@@ -1,4 +1,4 @@
-# Diagrama ER — Unicorn't Store
+﻿# Diagrama ER - Unicorn't Store
 
 > Motor: PostgreSQL 15+  
 > Fecha: Marzo 2026  
@@ -67,7 +67,7 @@ erDiagram
         INT         variant_id      FK  "NOT NULL UNIQUE"
         INT         qty_available   "NOT NULL DEFAULT 0 CHECK >= 0"
         INT         qty_reserved    "NOT NULL DEFAULT 0 CHECK >= 0"
-        TIMESTAMP   updated_at      "DEFAULT NOW() — via trigger"
+        TIMESTAMP   updated_at      "DEFAULT NOW() - via trigger"
     }
 
     inventory_movements {
@@ -89,7 +89,7 @@ erDiagram
         INT             total           "NOT NULL DEFAULT 0"
         TEXT            notes
         TIMESTAMP       created_at      "DEFAULT NOW()"
-        TIMESTAMP       updated_at      "DEFAULT NOW() — via trigger"
+        TIMESTAMP       updated_at      "DEFAULT NOW() - via trigger"
     }
 
     order_items {
@@ -141,7 +141,7 @@ erDiagram
 
 | Elemento | MySQL | PostgreSQL |
 |----------|-------|------------|
-| `ENUM` | Tipo nativo inline | `CREATE TYPE name AS ENUM (...)` — tipo reutilizable |
+| `ENUM` | Tipo nativo inline | `CREATE TYPE name AS ENUM (...)` - tipo reutilizable |
 | Booleanos | `TINYINT(1)` | `BOOLEAN` nativo (`TRUE`/`FALSE`) |
 | JSON | `JSON` | `JSONB` (binario, indexable con GIN) |
 | `DATETIME` | `DATETIME` | `TIMESTAMP` |

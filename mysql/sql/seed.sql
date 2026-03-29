@@ -1,5 +1,5 @@
--- =============================================================================
--- seed.sql — Unicorn't Store · Datos de prueba
+﻿-- =============================================================================
+-- seed.sql - Unicorn't Store · Datos de prueba
 -- Requiere haber ejecutado schema.sql previamente
 -- Contiene: 2 tipos, 10 categorías, 49 productos, 196 variantes,
 --           10 clientes, 10 direcciones, 30 órdenes, ~75 ítems,
@@ -48,7 +48,7 @@ INSERT INTO categories (id, name, slug, description) VALUES
   (10, 'QA',                 'qa',           'Quality Assurance, testing y control de calidad');
 
 -- =============================================================================
--- 3. products  (49 productos — todos del catálogo actual)
+-- 3. products  (49 productos - todos del catálogo actual)
 -- =============================================================================
 INSERT INTO products (id, name, product_type_id, category_id, price, description, image_base) VALUES
 
@@ -529,47 +529,47 @@ INSERT INTO payments (order_id, amount, currency, method, status, transaction_id
 
 -- Entradas iniciales de stock (tipo 'in') para variantes con más actividad
 INSERT INTO inventory_movements (variant_id, order_id, type, qty, notes) VALUES
-  (30,  NULL, 'in', 20, 'Stock inicial — dev-008-M (No Deploy on Fridays)'),
-  (26,  NULL, 'in', 20, 'Stock inicial — dev-007-M (It Works In My Container)'),
-  (10,  NULL, 'in', 20, 'Stock inicial — dev-003-M (Breaking Prod)'),
-  (142, NULL, 'in', 20, 'Stock inicial — per-036-M (Turing Test)'),
-  (34,  NULL, 'in', 20, 'Stock inicial — eng-009-M (Enigma Blueprint)'),
-  (38,  NULL, 'in', 20, 'Stock inicial — eng-010-M (Enigma Machine)'),
-  (178, NULL, 'in', 20, 'Stock inicial — prg-045-M (Programming Is 10%)'),
-  (6,   NULL, 'in', 20, 'Stock inicial — cloud-002-M (Cloud Architect)'),
-  (130, NULL, 'in', 20, 'Stock inicial — per-033-M (Ada Lovelace)'),
-  (138, NULL, 'in', 20, 'Stock inicial — per-035-M (Nikola Tesla)'),
-  (146, NULL, 'in', 20, 'Stock inicial — per-037-M (Von Neumann)'),
-  (114, NULL, 'in', 20, 'Stock inicial — itc-029-M (The Internet)'),
-  (66,  NULL, 'in', 20, 'Stock inicial — itc-017-M (RTFM)'),
-  (190, NULL, 'in', 20, 'Stock inicial — qa-048-M (QA I Don''t Break Things)'),
-  (194, NULL, 'in', 20, 'Stock inicial — qa-049-M (Testing in Production)');
+  (30,  NULL, 'in', 20, 'Stock inicial - dev-008-M (No Deploy on Fridays)'),
+  (26,  NULL, 'in', 20, 'Stock inicial - dev-007-M (It Works In My Container)'),
+  (10,  NULL, 'in', 20, 'Stock inicial - dev-003-M (Breaking Prod)'),
+  (142, NULL, 'in', 20, 'Stock inicial - per-036-M (Turing Test)'),
+  (34,  NULL, 'in', 20, 'Stock inicial - eng-009-M (Enigma Blueprint)'),
+  (38,  NULL, 'in', 20, 'Stock inicial - eng-010-M (Enigma Machine)'),
+  (178, NULL, 'in', 20, 'Stock inicial - prg-045-M (Programming Is 10%)'),
+  (6,   NULL, 'in', 20, 'Stock inicial - cloud-002-M (Cloud Architect)'),
+  (130, NULL, 'in', 20, 'Stock inicial - per-033-M (Ada Lovelace)'),
+  (138, NULL, 'in', 20, 'Stock inicial - per-035-M (Nikola Tesla)'),
+  (146, NULL, 'in', 20, 'Stock inicial - per-037-M (Von Neumann)'),
+  (114, NULL, 'in', 20, 'Stock inicial - itc-029-M (The Internet)'),
+  (66,  NULL, 'in', 20, 'Stock inicial - itc-017-M (RTFM)'),
+  (190, NULL, 'in', 20, 'Stock inicial - qa-048-M (QA I Don''t Break Things)'),
+  (194, NULL, 'in', 20, 'Stock inicial - qa-049-M (Testing in Production)');
 
 -- Salidas por órdenes entregadas/pagadas (tipo 'out')
 INSERT INTO inventory_movements (variant_id, order_id, type, qty, notes) VALUES
-  (30,  1,  'out', 1, 'Venta — orden #1'),
-  (22,  1,  'out', 1, 'Venta — orden #1'),
-  (10,  2,  'out', 1, 'Venta — orden #2'),
-  (142, 3,  'out', 1, 'Venta — orden #3'),
-  (34,  3,  'out', 1, 'Venta — orden #3'),
-  (38,  3,  'out', 1, 'Venta — orden #3'),
-  (74,  4,  'out', 1, 'Venta — orden #4'),
-  (86,  4,  'out', 1, 'Venta — orden #4'),
-  (30,  5,  'out', 2, 'Venta — orden #5'),
-  (18,  5,  'out', 1, 'Venta — orden #5'),
-  (10,  6,  'out', 1, 'Venta — orden #6'),
-  (178, 7,  'out', 1, 'Venta — orden #7'),
-  (182, 7,  'out', 1, 'Venta — orden #7'),
-  (6,   8,  'out', 1, 'Venta — orden #8'),
-  (142, 9,  'out', 1, 'Venta — orden #9'),
-  (138, 9,  'out', 1, 'Venta — orden #9'),
-  (130, 9,  'out', 1, 'Venta — orden #9'),
-  (114, 10, 'out', 2, 'Venta — orden #10'),
-  (66,  10, 'out', 1, 'Venta — orden #10');
+  (30,  1,  'out', 1, 'Venta - orden #1'),
+  (22,  1,  'out', 1, 'Venta - orden #1'),
+  (10,  2,  'out', 1, 'Venta - orden #2'),
+  (142, 3,  'out', 1, 'Venta - orden #3'),
+  (34,  3,  'out', 1, 'Venta - orden #3'),
+  (38,  3,  'out', 1, 'Venta - orden #3'),
+  (74,  4,  'out', 1, 'Venta - orden #4'),
+  (86,  4,  'out', 1, 'Venta - orden #4'),
+  (30,  5,  'out', 2, 'Venta - orden #5'),
+  (18,  5,  'out', 1, 'Venta - orden #5'),
+  (10,  6,  'out', 1, 'Venta - orden #6'),
+  (178, 7,  'out', 1, 'Venta - orden #7'),
+  (182, 7,  'out', 1, 'Venta - orden #7'),
+  (6,   8,  'out', 1, 'Venta - orden #8'),
+  (142, 9,  'out', 1, 'Venta - orden #9'),
+  (138, 9,  'out', 1, 'Venta - orden #9'),
+  (130, 9,  'out', 1, 'Venta - orden #9'),
+  (114, 10, 'out', 2, 'Venta - orden #10'),
+  (66,  10, 'out', 1, 'Venta - orden #10');
 
 -- Movimiento de ajuste de ejemplo
 INSERT INTO inventory_movements (variant_id, order_id, type, qty, notes) VALUES
-  (9, NULL, 'adjustment', -1, 'Ajuste por polera dañada en bodega — dev-003-S');
+  (9, NULL, 'adjustment', -1, 'Ajuste por polera dañada en bodega - dev-003-S');
 
 -- =============================================================================
 -- FIN seed.sql

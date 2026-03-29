@@ -1,5 +1,5 @@
--- =============================================================================
--- queries.sql — Unicorn't Store · Consultas de negocio y transacciones
+﻿-- =============================================================================
+-- queries.sql - Unicorn't Store · Consultas de negocio y transacciones
 -- RDBMS : PostgreSQL 15+
 -- =============================================================================
 -- \c unicornt_store   ← ejecutar en psql antes de este script
@@ -329,7 +329,7 @@ GROUP BY c.id, c.name
 ORDER BY ingresos_clp DESC;
 
 -- =============================================================================
--- FUNCIÓN F1: sp_crear_orden — Crear una orden completa con reserva de stock
+-- FUNCIÓN F1: sp_crear_orden - Crear una orden completa con reserva de stock
 -- =============================================================================
 -- Escenario: cliente 1 compra 2 unidades de dev-008-M (variant_id=30, $14990)
 --            y 1 unidad de itc-016-M (variant_id=62, $14990)
@@ -446,7 +446,7 @@ COMMIT;
 -- SELECT qty_available, qty_reserved FROM inventory WHERE variant_id IN (30, 62);
 
 -- =============================================================================
--- FUNCIÓN F2: sp_cancelar_orden — Cancelar una orden y liberar stock reservado
+-- FUNCIÓN F2: sp_cancelar_orden - Cancelar una orden y liberar stock reservado
 -- =============================================================================
 -- Diferencias clave respecto a MySQL:
 --   · FOR rec IN SELECT ... LOOP en lugar de DECLARE CURSOR / OPEN / FETCH.
@@ -493,7 +493,7 @@ BEGIN
 
         INSERT INTO inventory_movements (variant_id, order_id, type, qty, notes)
         VALUES (rec.variant_id, p_order_id, 'release', rec.qty,
-                'Liberación de reserva — cancelación orden #' || p_order_id);
+                'Liberación de reserva - cancelación orden #' || p_order_id);
     END LOOP;
 
     -- Paso 5: Actualizar payment

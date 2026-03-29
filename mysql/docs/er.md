@@ -1,4 +1,4 @@
-# Diagrama ER — Unicorn't Store
+﻿# Diagrama ER - Unicorn't Store
 
 > Motor: MySQL 8.0+  
 > Fecha: Marzo 2026  

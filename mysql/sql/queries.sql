@@ -1,5 +1,5 @@
--- =============================================================================
--- queries.sql — Unicorn't Store · Consultas de negocio y transacciones
+﻿-- =============================================================================
+-- queries.sql - Unicorn't Store · Consultas de negocio y transacciones
 -- RDBMS : MySQL 8.0+
 -- =============================================================================
 
@@ -530,7 +530,7 @@ BEGIN
 
         INSERT INTO inventory_movements (variant_id, order_id, type, qty, notes)
         VALUES (v_variant_id, p_order_id, 'release', v_qty,
-                CONCAT('Liberación de reserva — cancelación orden #', p_order_id));
+                CONCAT('Liberación de reserva - cancelación orden #', p_order_id));
     END LOOP;
 
     CLOSE cur_items;

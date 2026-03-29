@@ -1,4 +1,4 @@
-# Unicorn't Store — Base de datos · PostgreSQL 15+
+﻿# Unicorn't Store - Base de datos · PostgreSQL 15+
 
 Esquema relacional para la tienda de poleras geek/memes, adaptado para PostgreSQL 15+.
 

@@ -1,4 +1,4 @@
-# ecommerce-db-m3 — Modelo de datos Unicorn't Store
+﻿# ecommerce-db-m3 - Modelo de datos Unicorn't Store
 
 Esquema relacional MySQL 8.0 para el e-commerce **Unicorn't Store** (poleras y tazones geek/memes).
 
@@ -113,7 +113,7 @@ Resultados esperados:
 
 ## Transacciones
 
-### T1 — Crear orden
+### T1 - Crear orden
 
 ```sql
 -- Crea una orden para el cliente 1 (dirección 1) y devuelve el id generado
@@ -123,7 +123,7 @@ SELECT @nueva_orden;
 
 Comportamiento ante fallo (stock insuficiente): hace `ROLLBACK` automático y lanza `SIGNAL SQLSTATE '45000'`. No queda ningún registro huérfano.
 
-### T2 — Cancelar orden
+### T2 - Cancelar orden
 
 ```sql
 -- Cancela la orden 27 (status: pending)
