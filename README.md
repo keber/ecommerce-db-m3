@@ -1,4 +1,4 @@
-# Unicorn't Store — Base de datos
+﻿# Unicorn't Store - Base de datos
 
 > Repositorio: [github.com/keber/ecommerce-db-m3](https://github.com/keber/ecommerce-db-m3)
 
@@ -28,7 +28,7 @@ ecommerce-db-m3/
     └── README.md       # Setup PostgreSQL
 ```
 
-## Modelo de datos — resumen
+## Modelo de datos - resumen
 
 11 tablas que cubren el ciclo completo de un pedido:
 
@@ -47,5 +47,5 @@ customers → orders → order_items ← product_variants ← products ← categ
 
 Consulta el README de cada dialecto:
 
-- [mysql/README.md](mysql/README.md) — MySQL 8.0+
-- [postgresql/README.md](postgresql/README.md) — PostgreSQL 15+
+- [mysql/README.md](mysql/README.md) - MySQL 8.0+
+- [postgresql/README.md](postgresql/README.md) - PostgreSQL 15+
