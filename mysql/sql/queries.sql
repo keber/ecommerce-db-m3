@@ -44,7 +44,8 @@ ORDER BY relevance DESC;
 -- Q2. Productos por categoría temática
 -- =============================================================================
 -- Parámetro configurable: slug de la categoría
-SET @cat_slug = 'devops';
+-- SET @cat_slug = 'devops';
+SET @cat_slug = 'devops' COLLATE utf8mb4_unicode_ci; -- Forced Collation
 
 SELECT
     p.id,
@@ -71,9 +72,10 @@ ORDER BY total_products DESC;
 -- =============================================================================
 -- Q3. Top N productos por ventas (cantidad y monto)
 -- =============================================================================
-SET @top_n = 10;
 
 -- Top por unidades vendidas (excluye órdenes canceladas)
+SET @top_n = 10;
+SET @sql = '
 WITH ventas AS (
     SELECT
         pv.product_id,
@@ -81,25 +83,28 @@ WITH ventas AS (
         SUM(oi.subtotal) AS total_revenue
     FROM order_items oi
     JOIN product_variants pv ON pv.id = oi.variant_id
-    JOIN orders           o  ON o.id  = oi.order_id
-    WHERE o.status NOT IN ('cancelled', 'pending')
+    JOIN orders o ON o.id = oi.order_id
+    WHERE o.status NOT IN (''cancelled'', ''pending'')
     GROUP BY pv.product_id
 )
 SELECT
     ROW_NUMBER() OVER (ORDER BY v.total_qty DESC) AS ranking,
     p.id,
     p.name,
-    c.name     AS category,
+    c.name AS category,
     p.price,
     v.total_qty,
     v.total_revenue,
-    RANK()     OVER (ORDER BY v.total_revenue DESC) AS revenue_rank
+    RANK() OVER (ORDER BY v.total_revenue DESC) AS revenue_rank
 FROM ventas v
-JOIN products    p ON p.id = v.product_id
-JOIN categories  c ON c.id = p.category_id
+JOIN products p ON p.id = v.product_id
+JOIN categories c ON c.id = p.category_id
 ORDER BY v.total_qty DESC
-LIMIT @top_n;
+LIMIT ?';
 
+PREPARE stmt FROM @sql;
+EXECUTE stmt USING @top_n;
+DEALLOCATE PREPARE stmt;
 -- =============================================================================
 -- Q4. Ventas por mes y por categoría (sumas y conteos)
 -- =============================================================================
@@ -533,7 +538,10 @@ BEGIN
         END IF;
 
         UPDATE inventory
-           SET qty_reserved = GREATEST(0, qty_reserved - v_qty)
+           SET qty_reserved = CASE
+                        WHEN qty_reserved >= v_qty THEN qty_reserved - v_qty
+                        ELSE 0
+                      END
          WHERE variant_id = v_variant_id;
 
         INSERT INTO inventory_movements (variant_id, order_id, type, qty, notes)
